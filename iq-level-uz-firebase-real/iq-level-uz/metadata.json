@@ -1,0 +1,6 @@
+{
+  "name": "IQ Level Uz - Telegram Mini App & Bot",
+  "description": "Dark Neon Cyberpunk IQ Test, 1v1 Online Duel, Mini-O'yinlar va Maxfiy Admin Boshqaruvi",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,44 @@
+rules_version = '2';
+
+// Paste this into: Firebase Console -> Firestore Database -> Rules -> Publish
+// The app has no login system (it identifies people by their real Telegram
+// id), so these rules keep the 3 collections it uses open to read/write,
+// which is required for the live stats to work for every visitor.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // One real, permanent profile per real user (Telegram id or device id).
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Real duel results feed.
+    match /duels/{duelId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+
+    // Site-wide real counters (totalUsers, totalTestsCompleted, ...).
+    match /stats/{statId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Real-time 1v1 matchmaking waiting room. One doc per real user
+    // currently looking for a duel partner.
+    match /duelQueue/{userId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // A live, synced 1v1 duel between two real, matched users.
+    match /matches/{matchId} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if true;
+      allow delete: if false;
+    }
+  }
+}
